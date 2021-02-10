@@ -46,11 +46,14 @@ public class ZCRMSDKUtil: ZCacheClient
         return ZCRMRecord(moduleAPIName: moduleName)
     }
     
-    public func getEntity(ofType type: DataType) -> ZCacheEntity
+       public func getEntity(ofType type: DataType) -> ZCacheEntity
     {
         if type == .subform
         {
             return ZCRMSubformRecord(name: APIConstants.STRING_MOCK)
+        }
+        else if type == .client{
+            return ZCRMSDKUtil()
         }
         else if type == .user_lookup
         {
@@ -60,12 +63,36 @@ public class ZCRMSDKUtil: ZCacheClient
         {
             return ZCRMRecord(moduleAPIName: APIConstants.STRING_MOCK)
         }
+        else if type == .module{
+            return ZCRMModuleDelegate(apiName: APIConstants.STRING_MOCK)
+        }
+        else if type == .field
+        {
+            return ZCRMField(apiName: APIConstants.STRING_MOCK)
+        }
+        else if type == .layout
+        {
+            return ZCRMLayout(name: APIConstants.STRING_MOCK)
+        }
+        else if type == .record
+        {
+            return ZCRMRecord(moduleAPIName: APIConstants.STRING_MOCK)
+        }
+        else if type == .trashRecord
+        {
+            return ZCRMModuleDelegate(apiName: APIConstants.STRING_MOCK)
+        }
+        else if type == .user
+        {
+            return ZCRMModuleDelegate(apiName: APIConstants.STRING_MOCK)
+        }
+        
         else
         {
             return ZCRMRecord(moduleAPIName: APIConstants.STRING_MOCK)
         }
+        
     }
-    
     public func getModulesFromServer<T>(completion: @escaping ((Result<[T], ZCacheError>) -> Void))
     {
         MetaDataAPIHandler().getAllModules( modifiedSince : nil )
